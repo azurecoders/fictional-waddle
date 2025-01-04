@@ -23,6 +23,7 @@ import {
 } from "@dnd-kit/sortable";
 import { FC } from "react";
 import Section from "./Section";
+import Image from "next/image";
 
 interface SliderProps {
   isSheetOpen: boolean;
@@ -107,7 +108,7 @@ const Slider: FC<SliderProps> = ({
         <SheetContent className="overflow-y-auto">
           <SheetHeader className="flex flex-col gap-3">
             <SheetTitle className="flex items-center gap-2">
-              <img
+              <Image
                 src={activeLanguage?.image || ""}
                 alt={activeLanguage?.name || ""}
                 width={32}
@@ -125,12 +126,7 @@ const Slider: FC<SliderProps> = ({
               strategy={verticalListSortingStrategy}
             >
               {activeLanguage.sections.map((section: SectionType) => (
-                <Section
-                  key={section.id}
-                  section={section}
-                  setActiveLanguage={setActiveLanguage}
-                  activeLanguage={activeLanguage}
-                />
+                <Section key={section.id} section={section} />
               ))}
             </SortableContext>
           ) : (

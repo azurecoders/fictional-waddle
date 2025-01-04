@@ -8,15 +8,9 @@ import Chapter from "./Chapter";
 
 interface SectionProps {
   section: SectionType;
-  setActiveLanguage: (language: LanguagesType | null) => void; // Added this prop
-  activeLanguage: LanguagesType | null;
 }
 
-const Section: FC<SectionProps> = ({
-  section,
-  setActiveLanguage,
-  activeLanguage,
-}) => {
+const Section: FC<SectionProps> = ({ section }) => {
   const { attributes, listeners, setNodeRef, transform, transition, active } =
     useSortable({ id: section.id });
 
@@ -37,13 +31,7 @@ const Section: FC<SectionProps> = ({
           <div className="border my-2 font-extralight text-lg p-4 bg-neutral-800 text-neutral-50 w-full">
             <h3>Chapter {section.id}</h3>
             {section.chapters.map((chapter) => (
-              <Chapter
-                key={chapter.id}
-                chapter={chapter}
-                setActiveLanguage={setActiveLanguage}
-                activeLanguage={activeLanguage}
-                sectionId={section.id}
-              />
+              <Chapter key={chapter.id} chapter={chapter} />
             ))}
           </div>
         </SheetTitle>

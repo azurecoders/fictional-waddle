@@ -8,17 +8,9 @@ interface ChapterType {
     title: string;
     isCompleted: boolean;
   };
-  setActiveLanguage: (language: LanguagesType | null) => void;
-  activeLanguage: LanguagesType | null;
-  sectionId: number;
 }
 
-const Chapter: FC<ChapterType> = ({
-  chapter,
-  setActiveLanguage,
-  activeLanguage,
-  sectionId,
-}) => {
+const Chapter: FC<ChapterType> = ({ chapter }) => {
   return (
     <div
       className="bg-neutral-700 my-2 p-2 flex justify-between items-center"
