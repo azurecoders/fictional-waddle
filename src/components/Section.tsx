@@ -1,11 +1,22 @@
 "use client";
 
-import React from "react";
-import { SheetHeader, SheetTitle } from "./ui/sheet";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { SheetHeader, SheetTitle } from "./ui/sheet";
+import { FC } from "react";
+import Chapter from "./Chapter";
 
-const Section = ({ section }: { section: SectionType }) => {
+interface SectionProps {
+  section: SectionType;
+  setActiveLanguage: (language: LanguagesType | null) => void; // Added this prop
+  activeLanguage: LanguagesType | null;
+}
+
+const Section: FC<SectionProps> = ({
+  section,
+  setActiveLanguage,
+  activeLanguage,
+}) => {
   const { attributes, listeners, setNodeRef, transform, transition, active } =
     useSortable({ id: section.id });
 
@@ -26,9 +37,13 @@ const Section = ({ section }: { section: SectionType }) => {
           <div className="border my-2 font-extralight text-lg p-4 bg-neutral-800 text-neutral-50 w-full">
             <h3>Chapter {section.id}</h3>
             {section.chapters.map((chapter) => (
-              <div className="bg-neutral-700 my-2 p-2" key={chapter.id}>
-                {chapter.title}
-              </div>
+              <Chapter
+                key={chapter.id}
+                chapter={chapter}
+                setActiveLanguage={setActiveLanguage}
+                activeLanguage={activeLanguage}
+                sectionId={section.id}
+              />
             ))}
           </div>
         </SheetTitle>

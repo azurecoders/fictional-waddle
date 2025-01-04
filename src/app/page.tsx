@@ -44,7 +44,6 @@ export default function Home() {
   const [activeLanguage, setActiveLanguage] = useState<LanguagesType | null>(
     null
   );
-  console.log(languages);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -79,7 +78,7 @@ export default function Home() {
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
-        onDragEnd={handleDragEnd} // Add the onDragEnd handler here
+        onDragEnd={handleDragEnd}
       >
         <div className="container mx-auto p-4">
           <h1 className="text-3xl font-bold underline text-center my-6">

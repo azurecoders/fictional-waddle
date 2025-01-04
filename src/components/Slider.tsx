@@ -7,7 +7,15 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  MouseSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
@@ -15,7 +23,6 @@ import {
 } from "@dnd-kit/sortable";
 import { FC } from "react";
 import Section from "./Section";
-import Image from "next/image";
 
 interface SliderProps {
   isSheetOpen: boolean;
@@ -72,16 +79,35 @@ const Slider: FC<SliderProps> = ({
     setActiveLanguage(updatedActiveLanguage);
   };
 
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 1,
+    },
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      distance: 1,
+    },
+  });
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 1,
+    },
+  });
+
+  const sensors = [mouseSensor, touchSensor, pointerSensor];
+
   return (
     <DndContext
       collisionDetection={closestCorners}
       onDragEnd={handleSectionDragEnd}
+      sensors={sensors}
     >
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetContent className="overflow-y-auto">
           <SheetHeader className="flex flex-col gap-3">
             <SheetTitle className="flex items-center gap-2">
-              <Image
+              <img
                 src={activeLanguage?.image || ""}
                 alt={activeLanguage?.name || ""}
                 width={32}
@@ -95,13 +121,16 @@ const Slider: FC<SliderProps> = ({
           </SheetHeader>
           {activeLanguage?.sections && activeLanguage.sections.length > 0 ? (
             <SortableContext
-              items={activeLanguage.sections.map(
-                (section: SectionType) => section.id
-              )}
+              items={activeLanguage.sections}
               strategy={verticalListSortingStrategy}
             >
               {activeLanguage.sections.map((section: SectionType) => (
-                <Section key={section.id} section={section} />
+                <Section
+                  key={section.id}
+                  section={section}
+                  setActiveLanguage={setActiveLanguage}
+                  activeLanguage={activeLanguage}
+                />
               ))}
             </SortableContext>
           ) : (
