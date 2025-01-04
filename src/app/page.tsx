@@ -1,101 +1,111 @@
-import Image from "next/image";
+"use client";
+
+import Slider from "@/components/Slider";
+import { languagesConstant } from "@/constants";
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  MouseSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  rectSortingStrategy,
+  SortableContext,
+} from "@dnd-kit/sortable";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+
+const Language = dynamic(() => import("@/components/Language"), { ssr: false });
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 1,
+    },
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      distance: 1,
+    },
+  });
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 1,
+    },
+  });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const sensors = [mouseSensor, touchSensor, pointerSensor];
+  const [languages, setLanguages] = useState(languagesConstant);
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+  const [activeLanguage, setActiveLanguage] = useState<LanguagesType | null>(
+    null
+  );
+  console.log(languages);
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over) return;
+    if (active.id === over.id) return;
+
+    const activeIndex = languages.findIndex(
+      (language) => language.id === active?.id
+    );
+
+    const overIndex = languages.findIndex(
+      (language) => language.id === over?.id
+    );
+
+    setLanguages((language) => arrayMove(language, activeIndex, overIndex));
+  };
+
+  const handleCardClick = ({ ...props }) => {
+    setIsSheetOpen(true);
+    setActiveLanguage({
+      id: props.id,
+      name: props.name,
+      description: props.description,
+      image: props.image,
+      sections: props.sections,
+    });
+  };
+
+  return (
+    <>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragEnd={handleDragEnd} // Add the onDragEnd handler here
+      >
+        <div className="container mx-auto p-4">
+          <h1 className="text-3xl font-bold underline text-center my-6">
+            Welcome to MyPath
+          </h1>
+          <SortableContext items={languages} strategy={rectSortingStrategy}>
+            <div className="flex gap-4 flex-wrap items-center justify-center">
+              {languages?.map((language) => (
+                <Language
+                  key={language.id}
+                  {...language}
+                  handleCardClick={handleCardClick}
+                />
+              ))}
+            </div>
+          </SortableContext>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </DndContext>
+      <Slider
+        isSheetOpen={isSheetOpen}
+        setIsSheetOpen={setIsSheetOpen}
+        activeLanguage={activeLanguage}
+        setActiveLanguage={setActiveLanguage} // Added this prop
+        setLanguages={setLanguages}
+        languages={languages}
+      />
+    </>
   );
 }
