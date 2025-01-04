@@ -4,8 +4,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "Python",
     description:
       "Python is a programming language that lets you work quickly and integrate systems more effectively.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDEvJyUjkex89qzPfmjQxAiNZsVRD2IWcctg&s",
+    image: "./python.png",
     sections: [
       {
         id: 1,
@@ -80,7 +79,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "Java",
     description:
       "Java is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "https://logolook.net/wp-content/uploads/2022/11/Java-Logo.png",
+    image: "./java.png",
     sections: [
       {
         id: 1,
@@ -151,8 +150,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "JavaScript",
     description:
       "JavaScript is a programming language that lets you work quickly and integrate systems more effectively.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAXaZgOP8Dt5J05vGncrxXkY6VJKoi1_lsFw&s",
+    image: "./js.png",
     sections: [
       {
         id: 1,
@@ -211,8 +209,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "C++",
     description:
       "C++ is a programming language that lets you work quickly and integrate systems more effectively.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTggnWOHditMP1qlVy0wFSYTamZTgs5c_emyg&s",
+    image: "./c++.png",
     sections: [
       {
         id: 1,
@@ -279,8 +276,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "C#",
     description:
       "C# is a programming language that lets you work quickly and integrate systems more effectively.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyv15pjFdqWr0-qXnxCGaBlPf9F146ecwxhg&s",
+    image: "./c#.png",
     sections: [
       {
         id: 1,
@@ -343,8 +339,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "PHP",
     description:
       "PHP is a programming language that lets you work quickly and integrate systems more effectively.",
-    image:
-      "https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085715/cover_image/regular_1708x683/0925-3D_Data_Visualization_with_Open_Source_Tools_A_Tutorial_Using_VTK_Dan_Newsletter-8de886e8cfe7817dd6f2502c43aacdce.png",
+    image: "./php.png",
     sections: [
       {
         id: 1,
