@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Sheet,
   SheetContent,
@@ -23,13 +21,12 @@ import {
 } from "@dnd-kit/sortable";
 import { FC } from "react";
 import Section from "./Section";
-import Image from "next/image";
 
 interface SliderProps {
   isSheetOpen: boolean;
   setIsSheetOpen: (value: boolean) => void;
   activeLanguage: LanguagesType | null;
-  setActiveLanguage: (language: LanguagesType | null) => void; // Added this prop
+  setActiveLanguage: (language: LanguagesType | null) => void;
   setLanguages: (value: LanguagesType[]) => void;
   languages: LanguagesType[];
 }
@@ -38,7 +35,7 @@ const Slider: FC<SliderProps> = ({
   isSheetOpen,
   setIsSheetOpen,
   activeLanguage,
-  setActiveLanguage, // Added this prop
+  setActiveLanguage,
   languages,
   setLanguages,
 }) => {
@@ -61,13 +58,11 @@ const Slider: FC<SliderProps> = ({
       newIndex
     );
 
-    // Create updated language with new sections order
     const updatedActiveLanguage = {
       ...activeLanguage,
       sections: updatedSections,
     };
 
-    // Update the languages array with the new sections order
     const updatedLanguages = languages.map((language) => {
       if (language.id === activeLanguage.id) {
         return updatedActiveLanguage;
@@ -75,7 +70,44 @@ const Slider: FC<SliderProps> = ({
       return language;
     });
 
-    // Update both states
+    setLanguages(updatedLanguages);
+    setActiveLanguage(updatedActiveLanguage);
+  };
+
+  const handleUpdateChapter = (
+    sectionId: string,
+    chapterId: string,
+    newTitle: string
+  ) => {
+    if (!activeLanguage) return;
+
+    const updatedSections = activeLanguage.sections.map((section) => {
+      if (section.id.toString() === sectionId) {
+        return {
+          ...section,
+          chapters: section.chapters.map((chapter) => {
+            if (chapter.id.toString() === chapterId) {
+              return { ...chapter, title: newTitle };
+            }
+            return chapter;
+          }),
+        };
+      }
+      return section;
+    });
+
+    const updatedActiveLanguage = {
+      ...activeLanguage,
+      sections: updatedSections,
+    };
+
+    const updatedLanguages = languages.map((language) => {
+      if (language.id === activeLanguage.id) {
+        return updatedActiveLanguage;
+      }
+      return language;
+    });
+
     setLanguages(updatedLanguages);
     setActiveLanguage(updatedActiveLanguage);
   };
@@ -108,14 +140,11 @@ const Slider: FC<SliderProps> = ({
         <SheetContent className="overflow-y-auto">
           <SheetHeader className="flex flex-col gap-3">
             <SheetTitle className="flex items-center gap-2">
-              <Image
+              <img
                 src={activeLanguage?.image || ""}
                 alt={activeLanguage?.name || ""}
-                width={32}
-                height={32}
                 className="h-8"
               />
-
               <span>{activeLanguage?.name}</span>
             </SheetTitle>
             <SheetDescription>{activeLanguage?.description}</SheetDescription>
@@ -126,7 +155,11 @@ const Slider: FC<SliderProps> = ({
               strategy={verticalListSortingStrategy}
             >
               {activeLanguage.sections.map((section: SectionType) => (
-                <Section key={section.id} section={section} />
+                <Section
+                  key={section.id}
+                  section={section}
+                  onUpdateChapter={handleUpdateChapter}
+                />
               ))}
             </SortableContext>
           ) : (

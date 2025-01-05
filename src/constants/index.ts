@@ -276,7 +276,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "C#",
     description:
       "C# is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "./c#.png",
+    image: "./c-sharp.png",
     sections: [
       {
         id: 1,
