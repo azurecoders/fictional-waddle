@@ -21,6 +21,7 @@ import {
 } from "@dnd-kit/sortable";
 import { FC } from "react";
 import Section from "./Section";
+import Image from "next/image";
 
 interface SliderProps {
   isSheetOpen: boolean;
@@ -140,9 +141,11 @@ const Slider: FC<SliderProps> = ({
         <SheetContent className="overflow-y-auto">
           <SheetHeader className="flex flex-col gap-3">
             <SheetTitle className="flex items-center gap-2">
-              <img
+              <Image
                 src={activeLanguage?.image || ""}
                 alt={activeLanguage?.name || ""}
+                width={32}
+                height={32}
                 className="h-8"
               />
               <span>{activeLanguage?.name}</span>

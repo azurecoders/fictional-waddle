@@ -2,6 +2,7 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import Image from "next/image";
 import { FC } from "react";
 
 interface LanguageProps {
@@ -39,9 +40,11 @@ const Language: FC<LanguageProps> = ({ handleCardClick, ...props }) => {
       }
       className="w-[400px] h-auto rounded-md bg-neutral-200 p-4 cursor-pointer"
     >
-      <img
+      <Image
         src={props.image || ""}
         alt={props.name || ""}
+        height={100}
+        width={100}
         className="h-[100px] mx-auto"
       />
       <div className="my-4 flex flex-col gap-3">
