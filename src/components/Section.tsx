@@ -1,7 +1,8 @@
+// Section.tsx
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { SheetHeader, SheetTitle } from "./ui/sheet";
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState, ChangeEvent } from "react";
+import { GripVertical, Check, X, Edit2 } from "lucide-react";
 
 interface SectionProps {
   section: SectionType;
@@ -13,7 +14,7 @@ interface SectionProps {
 }
 
 const Section: FC<SectionProps> = ({ section, onUpdateChapter }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, active } =
+  const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: section.id });
 
   const [editingChapterId, setEditingChapterId] = useState<string | null>(null);
@@ -21,8 +22,7 @@ const Section: FC<SectionProps> = ({ section, onUpdateChapter }) => {
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition,
-    cursor: active ? "grabbing" : "pointer",
+    transition: transition || "transform 200ms cubic-bezier(0.2, 0, 0, 1)",
   };
 
   const handleStartEdit = (chapterId: string, currentTitle: string) => {
@@ -39,59 +39,96 @@ const Section: FC<SectionProps> = ({ section, onUpdateChapter }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, chapterId: string) => {
-    if (e.key === "Enter") {
-      handleSaveEdit(chapterId);
-    } else if (e.key === "Escape") {
+    if (e.key === "Enter") handleSaveEdit(chapterId);
+    else if (e.key === "Escape") {
       setEditingChapterId(null);
       setEditValue("");
     }
   };
 
   return (
-    <SheetHeader
-      className="flex flex-col gap-3"
+    <div
+      ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
+      className="group bg-neutral-800/20 rounded-xl border border-neutral-800/50
+                 hover:border-neutral-700/50 transition-all duration-300"
     >
-      <div ref={setNodeRef}>
-        <SheetTitle className="flex items-center gap-2">
-          <div className="border border-white/20 rounded-sm my-2 font-extralight text-lg p-4 text-neutral-50 w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
-            <h3>Chapter {section.id}</h3>
-            {section.chapters.map((chapter) => (
-              <div
-                className="bg-neutral-900/20 text-white/80 my-2 p-2 flex justify-between items-center"
-                key={chapter.id}
-              >
-                {editingChapterId === chapter.id.toString() ? (
+      <div className="p-4">
+        <div className="flex items-center gap-3 mb-4">
+          <div
+            {...attributes}
+            {...listeners}
+            className="cursor-grab active:cursor-grabbing p-1 
+                       text-neutral-500 hover:text-neutral-300 transition-colors"
+          >
+            <GripVertical className="w-5 h-5" />
+          </div>
+          <h3 className="text-lg font-medium text-white">
+            Section {section.id}
+          </h3>
+        </div>
+
+        <div className="space-y-2">
+          {section.chapters.map((chapter) => (
+            <div
+              key={chapter.id}
+              className="group/chapter bg-neutral-800/30 rounded-lg border border-transparent
+                         hover:border-neutral-700/50 transition-all duration-300"
+            >
+              {editingChapterId === chapter.id.toString() ? (
+                <div className="flex items-center p-3 relative">
                   <input
                     value={editValue}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setEditValue(e.target.value)
                     }
-                    onBlur={() => handleSaveEdit(chapter.id.toString())}
-                    onKeyDown={(e: React.KeyboardEvent) =>
-                      handleKeyDown(e, chapter.id.toString())
-                    }
-                    className="bg-neutral-600 text-white border-neutral-500 w-full"
+                    onKeyDown={(e) => handleKeyDown(e, chapter.id.toString())}
+                    className="flex-1 bg-neutral-700 text-white rounded-md px-3 py-1.5
+                             border border-neutral-600 focus:border-blue-500
+                             focus:ring-1 focus:ring-blue-500 outline-none
+                             pr-20"
                     autoFocus
                   />
-                ) : (
-                  <label
+                  <div className="absolute right-4 flex items-center gap-2">
+                    <button
+                      onClick={() => handleSaveEdit(chapter.id.toString())}
+                      className="p-1 text-green-500 hover:text-green-400
+                               transition-colors rounded-md bg-neutral-800"
+                    >
+                      <Check className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setEditingChapterId(null);
+                        setEditValue("");
+                      }}
+                      className="p-1 text-red-500 hover:text-red-400
+                               transition-colors rounded-md bg-neutral-800"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between p-3">
+                  <span className="text-neutral-200">{chapter.title}</span>
+                  <button
                     onClick={() =>
                       handleStartEdit(chapter.id.toString(), chapter.title)
                     }
-                    className="cursor-pointer hover:text-neutral-300 transition-colors"
+                    className="opacity-0 group-hover/chapter:opacity-100
+                             text-neutral-400 hover:text-white
+                             transition-all duration-200"
                   >
-                    {chapter.title}
-                  </label>
-                )}
-              </div>
-            ))}
-          </div>
-        </SheetTitle>
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </SheetHeader>
+    </div>
   );
 };
 
