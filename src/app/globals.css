@@ -11,3 +11,26 @@ body {
     --radius: 0.5rem;
   }
 }
+
+.ParallaxBackground {
+  background: radial-gradient(
+    125% 125% at 50% 10%,
+    #000 40%,
+    rgb(51, 110, 238) 100%
+  );
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.circle {
+  background: radial-gradient(
+    125% 125% at 50% 10%,
+    rgba(51, 163, 238, 0.63) 40%,
+    #ccc 80%
+  );
+}

@@ -4,7 +4,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "Python",
     description:
       "Python is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "./python.png",
+    image: "/python.png",
     sections: [
       {
         id: 1,
@@ -79,7 +79,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "Java",
     description:
       "Java is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "./java.png",
+    image: "/java.png",
     sections: [
       {
         id: 1,
@@ -150,7 +150,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "JavaScript",
     description:
       "JavaScript is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "./js.png",
+    image: "/js.png",
     sections: [
       {
         id: 1,
@@ -209,7 +209,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "C++",
     description:
       "C++ is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "./c++.png",
+    image: "/c++.png",
     sections: [
       {
         id: 1,
@@ -276,7 +276,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "C#",
     description:
       "C# is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "./c-sharp.png",
+    image: "/c-sharp.png",
     sections: [
       {
         id: 1,
@@ -339,7 +339,7 @@ export const languagesConstant: LanguagesType[] = [
     name: "PHP",
     description:
       "PHP is a programming language that lets you work quickly and integrate systems more effectively.",
-    image: "./php.png",
+    image: "/php.png",
     sections: [
       {
         id: 1,

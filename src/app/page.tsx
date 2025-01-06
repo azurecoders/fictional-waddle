@@ -80,19 +80,30 @@ export default function Home() {
         collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}
       >
-        <div className="container mx-auto p-4">
-          <h1 className="text-3xl font-bold underline text-center my-6">
-            Welcome to MyPath
-          </h1>
+        <div className="container mx-auto p-4 flex justify-center items-center flex-col min-h-screen">
+          <div className="flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-4">
+              <div className="circle rounded-full h-6 w-6" />
+              <div className="w-[150px] h-1 bg-white" />
+            </div>
+            <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-6xl uppercase font-semibold text-center my-6 text-white [text-shadow:_3_2px_0_rgb(255_255_255_/_40%)]">
+              Welcome to MyPath
+            </h1>
+            <div className="hidden lg:flex items-center gap-4">
+              <div className="w-[150px] h-1 bg-white" />
+              <div className="circle rounded-full h-6 w-6" />
+            </div>
+          </div>
           <SortableContext items={languages} strategy={rectSortingStrategy}>
-            <div className="flex gap-4 flex-wrap items-center justify-center">
-              {languages?.map((language) => (
-                <Language
-                  key={language.id}
-                  {...language}
-                  handleCardClick={handleCardClick}
-                />
-              ))}
+            <div className="flex gap-6 flex-wrap items-center justify-center">
+              {languages &&
+                languages.map((language) => (
+                  <Language
+                    key={language.id}
+                    {...language}
+                    handleCardClick={handleCardClick}
+                  />
+                ))}
             </div>
           </SortableContext>
         </div>

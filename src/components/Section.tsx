@@ -56,11 +56,11 @@ const Section: FC<SectionProps> = ({ section, onUpdateChapter }) => {
     >
       <div ref={setNodeRef}>
         <SheetTitle className="flex items-center gap-2">
-          <div className="border my-2 font-extralight text-lg p-4 bg-neutral-800 text-neutral-50 w-full">
+          <div className="border border-white/20 rounded-sm my-2 font-extralight text-lg p-4 text-neutral-50 w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
             <h3>Chapter {section.id}</h3>
             {section.chapters.map((chapter) => (
               <div
-                className="bg-neutral-700 my-2 p-2 flex justify-between items-center"
+                className="bg-neutral-900/20 text-white/80 my-2 p-2 flex justify-between items-center"
                 key={chapter.id}
               >
                 {editingChapterId === chapter.id.toString() ? (
@@ -73,7 +73,7 @@ const Section: FC<SectionProps> = ({ section, onUpdateChapter }) => {
                     onKeyDown={(e: React.KeyboardEvent) =>
                       handleKeyDown(e, chapter.id.toString())
                     }
-                    className="bg-neutral-600 text-white border-neutral-500"
+                    className="bg-neutral-600 text-white border-neutral-500 w-full"
                     autoFocus
                   />
                 ) : (

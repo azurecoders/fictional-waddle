@@ -38,18 +38,23 @@ const Language: FC<LanguageProps> = ({ handleCardClick, ...props }) => {
           sections: props.sections,
         })
       }
-      className="w-[400px] h-auto rounded-md bg-neutral-200 p-4 cursor-pointer"
+      className="w-full md:w-[400px] h-[380px] rounded-md bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] text-white p-6 cursor-pointer border border-neutral-50/15 motion-opacity-in-0 motion-translate-y-in-100 motion-blur-in-md hover:scale-[1.01] transition-all duration-300 ease-in-out"
     >
       <Image
         src={props.image || ""}
         alt={props.name || ""}
-        height={100}
-        width={100}
+        width={180}
+        height={200}
         className="h-[100px] mx-auto"
       />
-      <div className="my-4 flex flex-col gap-3">
-        <h3 className="font-normal text-xl">{props.name}</h3>
-        <p>{props.description}</p>
+      <div className="my-6 flex flex-col gap-3">
+        <h3 className="font-bold text-2xl">{props.name}</h3>
+        <p className="font-medium text-[17px] text-white/60">
+          {props.description}
+        </p>
+        <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-2 rounded-md my-4 cursor-pointer motion-scale-in-0">
+          See More
+        </button>
       </div>
     </div>
   );

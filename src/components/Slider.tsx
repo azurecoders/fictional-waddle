@@ -1,7 +1,6 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
@@ -19,9 +18,9 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import Image from "next/image";
 import { FC } from "react";
 import Section from "./Section";
-import Image from "next/image";
 
 interface SliderProps {
   isSheetOpen: boolean;
@@ -132,45 +131,61 @@ const Slider: FC<SliderProps> = ({
   const sensors = [mouseSensor, touchSensor, pointerSensor];
 
   return (
-    <DndContext
-      collisionDetection={closestCorners}
-      onDragEnd={handleSectionDragEnd}
-      sensors={sensors}
-    >
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="overflow-y-auto">
-          <SheetHeader className="flex flex-col gap-3">
-            <SheetTitle className="flex items-center gap-2">
-              <Image
-                src={activeLanguage?.image || ""}
-                alt={activeLanguage?.name || ""}
-                width={32}
-                height={32}
-                className="h-8"
-              />
-              <span>{activeLanguage?.name}</span>
-            </SheetTitle>
-            <SheetDescription>{activeLanguage?.description}</SheetDescription>
-          </SheetHeader>
-          {activeLanguage?.sections && activeLanguage.sections.length > 0 ? (
-            <SortableContext
-              items={activeLanguage.sections}
-              strategy={verticalListSortingStrategy}
-            >
-              {activeLanguage.sections.map((section: SectionType) => (
-                <Section
-                  key={section.id}
-                  section={section}
-                  onUpdateChapter={handleUpdateChapter}
+    <div className="bg-black dark">
+      <DndContext
+        collisionDetection={closestCorners}
+        onDragEnd={handleSectionDragEnd}
+        sensors={sensors}
+      >
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+          <SheetContent
+            className="w-full p-3 md:p-4 md:w-9/12 bg-slate-950 border-none shadow-white shadow-md text-white overflow-y-auto [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:rounded-full
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+          >
+            <SheetHeader className="flex flex-col gap-3 p-4">
+              <SheetTitle className="flex gap-4">
+                <Image
+                  src={activeLanguage?.image || ""}
+                  alt={activeLanguage?.name || ""}
+                  width={40}
+                  height={40}
+                  className="hidden md:block h-8  w-8 rounded-full object-cover object-center"
                 />
-              ))}
-            </SortableContext>
-          ) : (
-            <p>No sections available.</p>
-          )}
-        </SheetContent>
-      </Sheet>
-    </DndContext>
+                <div>
+                  <span className="text-2xl text-white">
+                    {activeLanguage?.name}
+                  </span>
+                  <p className="text-white/60 text-sm font-light">
+                    {activeLanguage?.description}
+                  </p>
+                </div>
+              </SheetTitle>
+            </SheetHeader>
+            {activeLanguage?.sections && activeLanguage.sections.length > 0 ? (
+              <SortableContext
+                items={activeLanguage.sections}
+                strategy={verticalListSortingStrategy}
+              >
+                {activeLanguage.sections.map((section: SectionType) => (
+                  <Section
+                    key={section.id}
+                    section={section}
+                    onUpdateChapter={handleUpdateChapter}
+                  />
+                ))}
+              </SortableContext>
+            ) : (
+              <p>No sections available.</p>
+            )}
+          </SheetContent>
+        </Sheet>
+      </DndContext>
+    </div>
   );
 };
 
