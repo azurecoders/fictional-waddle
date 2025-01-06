@@ -86,7 +86,7 @@ export default function Home() {
               <div className="circle rounded-full h-6 w-6" />
               <div className="w-[150px] h-1 bg-white" />
             </div>
-            <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-6xl uppercase font-semibold text-center my-6 text-white [text-shadow:_3_2px_0_rgb(255_255_255_/_40%)]">
+            <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-6xl uppercase font-semibold text-center my-12 text-white [text-shadow:_3_2px_0_rgb(255_255_255_/_40%)]">
               Welcome to MyPath
             </h1>
             <div className="hidden lg:flex items-center gap-4">
