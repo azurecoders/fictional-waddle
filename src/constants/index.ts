@@ -9,7 +9,7 @@ export const languagesConstant: LanguagesType[] = [
       {
         id: 1,
         chapters: [
-          { id: 1, title: "Introduction to Python", isCompleted: false },
+          // { id: 1, title: "Introduction to Python", isCompleted: false },
           { id: 2, title: "Python Syntax", isCompleted: false },
           { id: 3, title: "Variables and Data Types", isCompleted: false },
           { id: 4, title: "Control Flow", isCompleted: false },

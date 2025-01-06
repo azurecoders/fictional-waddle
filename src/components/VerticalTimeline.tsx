@@ -1,8 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Book, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
-import { Clock, ChevronRight, Award, Book } from "lucide-react";
 
 interface TimelineLanguageProps extends LanguagesType {
   handleCardClick: (props: LanguagesType) => void;
@@ -55,18 +55,18 @@ const TimelineLanguage: FC<TimelineLanguageProps> = ({
     cursor: active ? "grabbing" : "pointer",
   };
 
+  let totalChapters = 0;
+  props.sections.map((section) => {
+    totalChapters = section.chapters.length;
+  });
+
   const completedChapters = props.sections.reduce(
-    (acc, section) =>
-      acc + section.chapters.filter((ch) => ch.isCompleted).length,
+    (total, section) =>
+      total + section.chapters.filter((ch) => ch.isCompleted).length,
     0
   );
 
-  const totalChapters = props.sections.reduce(
-    (acc, section) => acc + section.chapters.length,
-    0
-  );
-
-  const progress = totalChapters > 0 ? completedChapters / totalChapters : 0;
+  const progress = totalChapters! > 0 ? completedChapters / totalChapters! : 0;
 
   return (
     <div
@@ -140,11 +140,7 @@ const TimelineLanguage: FC<TimelineLanguageProps> = ({
             <div className="flex items-center gap-4 text-sm text-neutral-400">
               <div className="flex items-center gap-2">
                 <Book className="w-4 h-4" />
-                {totalChapters} Chapters
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4" />
-                Level {index + 1}
+                {totalChapters} {totalChapters === 1 ? "Chapter" : "Chapters"}
               </div>
             </div>
           </div>
@@ -158,28 +154,6 @@ const TimelineLanguage: FC<TimelineLanguageProps> = ({
 
         {/* Footer */}
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-3">
-              {props.sections.map(
-                (section, idx) =>
-                  idx < 4 && (
-                    <div
-                      key={section.id}
-                      className="w-8 h-8 rounded-full border-2 border-neutral-800 
-                               bg-neutral-900 flex items-center justify-center 
-                               text-xs font-medium text-neutral-400
-                               transition-transform duration-300 hover:scale-110 hover:z-10"
-                    >
-                      {section.chapters.filter((ch) => ch.isCompleted).length}
-                    </div>
-                  )
-              )}
-            </div>
-            <Clock className="w-4 h-4 text-neutral-500" />
-            <span className="text-sm text-neutral-500">
-              {totalChapters * 15} mins
-            </span>
-          </div>
           <button
             className="group/btn flex items-center gap-2 bg-blue-600/90 hover:bg-blue-600 
                             text-white px-6 py-2.5 rounded-xl font-medium text-sm

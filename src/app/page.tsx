@@ -1,5 +1,7 @@
 "use client";
 
+import LanguageForm from "@/components/LanguageForm";
+import Slider from "@/components/Slider";
 import { languagesConstant } from "@/constants";
 import {
   closestCorners,
@@ -12,12 +14,13 @@ import {
 } from "@dnd-kit/core";
 import {
   arrayMove,
-  verticalListSortingStrategy,
   SortableContext,
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { Plus } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useState } from "react";
-import Slider from "@/components/Slider";
 
 const VerticalTimeline = dynamic(
   () => import("@/components/VerticalTimeline"),
@@ -46,6 +49,7 @@ export default function Home() {
   const [activeLanguage, setActiveLanguage] = useState<LanguagesType | null>(
     null
   );
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -65,21 +69,48 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={languages}
-          strategy={verticalListSortingStrategy}
+      <div className="container mx-auto pt-8 px-4">
+        <div className="flex justify-between items-center mb-8">
+          <Link href="/">
+            <h1 className="text-3xl font-bold text-white">Language Courses</h1>
+          </Link>
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 
+                     text-white px-4 py-2 rounded-lg transition-colors duration-200"
+          >
+            {showForm ? (
+              "View Courses"
+            ) : (
+              <>
+                <Plus className="w-5 h-5" />
+                <span>Add Language</span>
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {showForm ? (
+        <LanguageForm setLanguages={setLanguages} setShowForm={setShowForm} />
+      ) : (
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCorners}
+          onDragEnd={handleDragEnd}
         >
-          <VerticalTimeline
-            languages={languages}
-            handleCardClick={handleCardClick}
-          />
-        </SortableContext>
-      </DndContext>
+          <SortableContext
+            items={languages}
+            strategy={verticalListSortingStrategy}
+          >
+            <VerticalTimeline
+              languages={languages}
+              handleCardClick={handleCardClick}
+            />
+          </SortableContext>
+        </DndContext>
+      )}
+
       <Slider
         isSheetOpen={isSheetOpen}
         setIsSheetOpen={setIsSheetOpen}
