@@ -1,8 +1,6 @@
-import React, { FC } from "react";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import { FC } from "react";
 
 interface TimelineItemProps extends LanguagesType {
   handleCardClick: (props: LanguagesType) => void;
@@ -21,15 +19,6 @@ const TimelineItem: FC<TimelineItemProps> = ({
   totalItems,
   ...props
 }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, active } =
-    useSortable({ id: props.id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    cursor: active ? "grabbing" : "pointer",
-  };
-
   const totalChapters = props.sections.reduce(
     (total, section) => total + section.chapters.length,
     0
@@ -45,13 +34,9 @@ const TimelineItem: FC<TimelineItemProps> = ({
     totalChapters > 0 ? (completedChapters / totalChapters) * 100 : 0;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center cursor-pointer">
       {/* Progress Circle */}
       <div
-        ref={setNodeRef}
-        style={style}
-        {...attributes}
-        {...listeners}
         onClick={() => handleCardClick(props)}
         className="group relative w-[100px] h-[100px] mb-4 
                    hover:scale-110 transition-all duration-300"

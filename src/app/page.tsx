@@ -1,23 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Plus } from "lucide-react";
-import {
-  closestCorners,
-  DndContext,
-  DragEndEvent,
-  MouseSensor,
-  PointerSensor,
-  TouchSensor,
-  useSensor,
-} from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { useEffect, useState } from "react";
 
 import LanguageForm from "@/components/LanguageForm";
 import Slider from "@/components/Slider";
@@ -34,21 +20,6 @@ const VerticalTimeline = dynamic(
 const LOCAL_STORAGE_KEY = "languageCourses";
 
 export default function Home() {
-  // Initialize sensors for drag and drop
-  const mouseSensor = useSensor(MouseSensor, {
-    activationConstraint: { distance: 1 },
-  });
-
-  const touchSensor = useSensor(TouchSensor, {
-    activationConstraint: { distance: 1 },
-  });
-
-  const pointerSensor = useSensor(PointerSensor, {
-    activationConstraint: { distance: 1 },
-  });
-
-  const sensors = [mouseSensor, touchSensor, pointerSensor];
-
   // State management with correct types
   const [languages, setLanguages] = useState<LanguagesType[]>([]);
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
@@ -79,20 +50,6 @@ export default function Home() {
     }
   }, [languages]);
 
-  // Handle drag end event
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-
-    setLanguages((items) => {
-      const activeIndex = items.findIndex(
-        (item) => item.id === Number(active.id)
-      );
-      const overIndex = items.findIndex((item) => item.id === Number(over.id));
-      return arrayMove(items, activeIndex, overIndex);
-    });
-  };
-
   // Handle card click with correct type
   const handleCardClick = (language: LanguagesType) => {
     setIsSheetOpen(true);
@@ -102,7 +59,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
       <div className="container mx-auto pt-8 px-4">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-8 flex-wrap gap-5">
           <Link href="/">
             <h1 className="text-3xl font-bold text-white">Language Courses</h1>
           </Link>
@@ -126,21 +83,10 @@ export default function Home() {
       {showForm ? (
         <LanguageForm setLanguages={setLanguages} setShowForm={setShowForm} />
       ) : (
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCorners}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={languages.map((lang) => ({ id: String(lang.id) }))}
-            strategy={verticalListSortingStrategy}
-          >
-            <VerticalTimeline
-              languages={languages}
-              handleCardClick={handleCardClick}
-            />
-          </SortableContext>
-        </DndContext>
+        <VerticalTimeline
+          languages={languages}
+          handleCardClick={handleCardClick}
+        />
       )}
 
       <Slider
