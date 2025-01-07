@@ -164,10 +164,6 @@ const TimelineLanguage: FC<TimelineLanguageProps> = ({
                 <span>{Math.round(progress)}% Progress</span>
               </div>
             </div>
-            <p className="text-neutral-400 text-sm mb-6">
-              Master {props.name} through our comprehensive curriculum designed
-              for all skill levels.
-            </p>
           </div>
         </div>
 
