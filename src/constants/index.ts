@@ -2,15 +2,13 @@ export const languagesConstant: LanguagesType[] = [
   {
     id: 1,
     name: "Python",
-    description:
-      "Python is a programming language that lets you work quickly and integrate systems more effectively.",
     image: "/python.png",
     sections: [
       {
         id: 1,
         chapters: [
           // { id: 1, title: "Introduction to Python", isCompleted: false },
-          { id: 2, title: "Python Syntax", isCompleted: false },
+          { id: 2, title: "Python Syntax", isCompleted: true },
           { id: 3, title: "Variables and Data Types", isCompleted: false },
           { id: 4, title: "Control Flow", isCompleted: false },
           { id: 5, title: "Functions in Python", isCompleted: false },
@@ -77,8 +75,7 @@ export const languagesConstant: LanguagesType[] = [
   {
     id: 2,
     name: "Java",
-    description:
-      "Java is a programming language that lets you work quickly and integrate systems more effectively.",
+
     image: "/java.png",
     sections: [
       {
@@ -148,8 +145,7 @@ export const languagesConstant: LanguagesType[] = [
   {
     id: 3,
     name: "JavaScript",
-    description:
-      "JavaScript is a programming language that lets you work quickly and integrate systems more effectively.",
+
     image: "/js.png",
     sections: [
       {
@@ -207,8 +203,6 @@ export const languagesConstant: LanguagesType[] = [
   {
     id: 4,
     name: "C++",
-    description:
-      "C++ is a programming language that lets you work quickly and integrate systems more effectively.",
     image: "/c++.png",
     sections: [
       {
@@ -274,8 +268,6 @@ export const languagesConstant: LanguagesType[] = [
   {
     id: 5,
     name: "C#",
-    description:
-      "C# is a programming language that lets you work quickly and integrate systems more effectively.",
     image: "/c-sharp.png",
     sections: [
       {
@@ -337,8 +329,6 @@ export const languagesConstant: LanguagesType[] = [
   {
     id: 6,
     name: "PHP",
-    description:
-      "PHP is a programming language that lets you work quickly and integrate systems more effectively.",
     image: "/php.png",
     sections: [
       {

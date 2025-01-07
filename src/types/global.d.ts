@@ -12,7 +12,6 @@ interface SectionType {
 interface LanguagesType {
   id: number;
   name: string;
-  description: string;
   image: string;
   sections: SectionType[];
 }

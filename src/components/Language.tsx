@@ -8,7 +8,6 @@ import { FC } from "react";
 interface LanguageProps {
   id: number;
   name: string;
-  description: string;
   image: string;
   sections: SectionType[];
   handleCardClick: ({ ...props }) => void;
@@ -33,7 +32,6 @@ const Language: FC<LanguageProps> = ({ handleCardClick, ...props }) => {
         handleCardClick({
           id: props.id,
           name: props.name,
-          description: props.description,
           image: props.image,
           sections: props.sections,
         })
@@ -49,9 +47,6 @@ const Language: FC<LanguageProps> = ({ handleCardClick, ...props }) => {
       />
       <div className="my-6 flex flex-col gap-3">
         <h3 className="font-bold text-2xl">{props.name}</h3>
-        <p className="font-medium text-[17px] text-white/60">
-          {props.description}
-        </p>
         <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-2 rounded-md my-4 cursor-pointer">
           See More
         </button>

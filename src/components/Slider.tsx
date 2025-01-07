@@ -175,9 +175,6 @@ const Slider: FC<SliderProps> = ({
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              <p className="text-neutral-300 text-sm">
-                {activeLanguage?.description}
-              </p>
             </div>
 
             <div

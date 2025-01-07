@@ -11,7 +11,6 @@ type FormValues = Omit<LanguagesType, "id">;
 
 const initialValues: FormValues = {
   name: "",
-  description: "",
   image: "",
   sections: [
     {
@@ -156,29 +155,6 @@ const LanguageForm: React.FC<LanguageFormProps> = ({
                         </div>
                       )}
                     </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="description"
-                      className="block text-sm font-medium text-neutral-300 mb-2"
-                    >
-                      Description
-                    </label>
-                    <Field
-                      id="description"
-                      as="textarea"
-                      name="description"
-                      className="w-full bg-neutral-800/50 text-white rounded-lg px-4 py-2.5 
-                             border border-neutral-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                      rows={3}
-                      placeholder="Enter language description..."
-                    />
-                    {touched.description && errors.description && (
-                      <div className="text-red-400 text-sm mt-1">
-                        {errors.description}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
