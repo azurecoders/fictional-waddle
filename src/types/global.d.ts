@@ -15,3 +15,14 @@ interface LanguagesType {
   image: string;
   sections: SectionType[];
 }
+
+interface TimelineLanguageProps extends LanguagesType {
+  handleCardClick: (props: LanguagesType) => void;
+  index: number;
+  totalItems: number;
+}
+
+interface VerticalTimelineProps {
+  languages: LanguagesType[];
+  handleCardClick: (props: LanguagesType) => void;
+}
