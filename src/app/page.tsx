@@ -9,7 +9,6 @@ import LanguageForm from "@/components/LanguageForm";
 import Slider from "@/components/Slider";
 import { languagesConstant } from "@/constants";
 
-// Import VerticalTimeline with SSR disabled
 const VerticalTimeline = dynamic(
   () => import("@/components/VerticalTimeline"),
   {
@@ -20,7 +19,6 @@ const VerticalTimeline = dynamic(
 const LOCAL_STORAGE_KEY = "languageCourses";
 
 export default function Home() {
-  // State management with correct types
   const [languages, setLanguages] = useState<LanguagesType[]>([]);
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [activeLanguage, setActiveLanguage] = useState<LanguagesType | null>(
@@ -28,13 +26,11 @@ export default function Home() {
   );
   const [showForm, setShowForm] = useState<boolean>(false);
 
-  // Load data from localStorage on initial render
   useEffect(() => {
     const storedLanguages = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (storedLanguages) {
       setLanguages(JSON.parse(storedLanguages));
     } else {
-      // Ensure languagesConstant matches LanguagesType[]
       setLanguages(languagesConstant as LanguagesType[]);
       localStorage.setItem(
         LOCAL_STORAGE_KEY,
@@ -43,14 +39,12 @@ export default function Home() {
     }
   }, []);
 
-  // Update localStorage whenever languages state changes
   useEffect(() => {
     if (languages.length > 0) {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(languages));
     }
   }, [languages]);
 
-  // Handle card click with correct type
   const handleCardClick = (language: LanguagesType) => {
     setIsSheetOpen(true);
     setActiveLanguage(language);

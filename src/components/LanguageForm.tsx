@@ -19,11 +19,6 @@ const initialValues: FormValues = {
   ],
 };
 
-interface LanguageFormProps {
-  setLanguages: React.Dispatch<React.SetStateAction<LanguagesType[]>>;
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 const LanguageForm: React.FC<LanguageFormProps> = ({
   setLanguages,
   setShowForm,

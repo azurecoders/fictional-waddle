@@ -24,15 +24,6 @@ import { FC } from "react";
 import Section from "./Section";
 import { X } from "lucide-react";
 
-interface SliderProps {
-  isSheetOpen: boolean;
-  setIsSheetOpen: (value: boolean) => void;
-  activeLanguage: LanguagesType | null;
-  setActiveLanguage: (language: LanguagesType | null) => void;
-  setLanguages: (value: LanguagesType[]) => void;
-  languages: LanguagesType[];
-}
-
 const Slider: FC<SliderProps> = ({
   isSheetOpen,
   setIsSheetOpen,
@@ -44,7 +35,7 @@ const Slider: FC<SliderProps> = ({
   const sensors = [
     useSensor(MouseSensor, {
       activationConstraint: {
-        distance: 2, // Reduced for more responsive drag
+        distance: 2,
         tolerance: 2,
         delay: 0,
       },

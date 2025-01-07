@@ -2,17 +2,6 @@ import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
 
-interface TimelineItemProps extends LanguagesType {
-  handleCardClick: (props: LanguagesType) => void;
-  index: number;
-  totalItems: number;
-}
-
-interface VerticalTimelineProps {
-  languages: LanguagesType[];
-  handleCardClick: (props: LanguagesType) => void;
-}
-
 const TimelineItem: FC<TimelineItemProps> = ({
   handleCardClick,
   index,
@@ -35,7 +24,6 @@ const TimelineItem: FC<TimelineItemProps> = ({
 
   return (
     <div className="flex flex-col items-center cursor-pointer">
-      {/* Progress Circle */}
       <div
         onClick={() => handleCardClick(props)}
         className="group relative w-[100px] h-[100px] mb-4 
@@ -82,7 +70,6 @@ const TimelineItem: FC<TimelineItemProps> = ({
         </div>
       </div>
 
-      {/* Arrow Connector */}
       {index !== totalItems - 1 && (
         <div className="flex flex-col items-center mb-4">
           <div className="h-8 w-0.5 bg-blue-500/20 group-hover:bg-blue-500/50 transition-colors duration-300" />

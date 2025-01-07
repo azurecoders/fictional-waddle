@@ -4,15 +4,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { FC, useState, ChangeEvent } from "react";
 import { GripVertical, Check, X, Edit2 } from "lucide-react";
 
-interface SectionProps {
-  section: SectionType;
-  onUpdateChapter?: (
-    sectionId: string,
-    chapterId: string,
-    newTitle: string
-  ) => void;
-}
-
 const Section: FC<SectionProps> = ({ section, onUpdateChapter }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: section.id });

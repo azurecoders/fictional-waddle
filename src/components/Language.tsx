@@ -5,13 +5,6 @@ import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
 import { FC } from "react";
 
-interface LanguageProps {
-  id: number;
-  name: string;
-  image: string;
-  sections: SectionType[];
-  handleCardClick: ({ ...props }) => void;
-}
 const Language: FC<LanguageProps> = ({ handleCardClick, ...props }) => {
   const { attributes, listeners, setNodeRef, transform, transition, active } =
     useSortable({ id: props.id });
